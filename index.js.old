@@ -1,0 +1,29 @@
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 5000;
+const pool = require('./db');  // Adjust the path based on your project structure
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express backend!');
+});
+
+// Initialize database tables
+app.get('/initialize', async (req, res) => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL
+      )
+    `);
+    res.send('Database tables initialized successfully');
+  } catch (error) {
+    console.error('Error initializing database tables:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
