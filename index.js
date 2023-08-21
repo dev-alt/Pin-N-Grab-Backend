@@ -22,6 +22,19 @@ app.get('/data', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+app.get('/total-users', async (req, res) => {
+    try {
+        const query = 'SELECT COUNT(*) AS totalUsers FROM users'; // Count the total number of users
+        const [rows] = await db.promise().query(query);
+        const totalUsers = rows[0].totalUsers;
+
+        res.json({ totalUsers }); // Send the total number of users as JSON response
+    } catch (error) {
+        console.error('Error fetching total users from the database:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 app.use((req, res, next) => {
     console.log('Incoming request:', req.url);
