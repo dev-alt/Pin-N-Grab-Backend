@@ -5,7 +5,7 @@ const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: 'root',
     password: 'root',
-    database: 'Users',
+    database: 'mydb',
 });
 
 pool.getConnection((err, connection) => {
