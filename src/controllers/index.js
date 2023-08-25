@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const db = require('./db');
+const db = require('../utils/db');
 const cors = require('cors'); // Import the cors middleware
 
 app.use(cors());

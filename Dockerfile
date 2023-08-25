@@ -12,11 +12,15 @@ RUN npm install
 RUN npm install express
 RUN npm install mysql2
 RUN npm install cors
+RUN npm install sequelize-cli
 
 COPY . .
 
 # Expose the app's port
 EXPOSE 5000
 
+# Run migrations or SQL script
+RUN npx sequelize-cli db:migrate
+
 # Start the backend
-CMD ["node", "index.js"]
+CMD ["node", "nodemon" "app.js"]
