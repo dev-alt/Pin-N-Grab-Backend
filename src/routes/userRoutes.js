@@ -15,8 +15,7 @@ router.get('/test-route', (req, res) => {
 router.get('/data', async (req, res) => {
     try {
         const query = 'SELECT * FROM users';
-        const [rows] = await db.promise().query(query);
-
+        const [rows] = await db.query(query); // Use the query method directly
         console.log('Rows:', rows);
         res.json(rows);
     } catch (error) {
@@ -28,7 +27,7 @@ router.get('/data', async (req, res) => {
 router.get('/total-users', async (req, res) => {
     try {
         const query = 'SELECT COUNT(*) AS totalUsers FROM users';
-        const [rows] = await db.promise().query(query);
+        const [rows] = await db.query(query);
         const totalUsers = rows[0].totalUsers;
 
         res.json({ totalUsers });

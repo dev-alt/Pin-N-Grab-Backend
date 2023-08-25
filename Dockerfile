@@ -13,10 +13,12 @@ RUN npm install express
 RUN npm install mysql2
 RUN npm install cors
 RUN npm install sequelize-cli
+RUN npm install bcrypt      
+RUN apt-get -q update && apt-get -qy install netcat
 
-# Copy the wait-for-it script
-COPY wait-for-it.sh /usr/src/
-RUN chmod +x /usr/src/wait-for-it.sh
+# Copy the wait-for script
+COPY wait-for.sh /usr/src/
+RUN chmod +x /usr/src/wait-for.sh
 
 # Copy the application code
 COPY . .
@@ -24,8 +26,5 @@ COPY . .
 # Expose the app's port
 EXPOSE 5000
 
-# Wait for MySQL to be up and running, then run migrations
-CMD ["./usr/src/wait-for-it.sh", "mysql:3306", "--", "npx", "sequelize-cli", "db:migrate"]
-
-# Start the backend
-CMD ["node", "app.js"]
+# Start the backend using the wait-for script
+CMD ["./wait-for.sh", "mysql:3306", "--", "npm", "start"]
