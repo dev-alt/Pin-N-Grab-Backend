@@ -20,4 +20,9 @@ const User = sequelize.define('User', {
   },
 });
 
+// Require UserProfile model and create associations
+const UserProfile = require('./UserProfile');
+User.hasOne(UserProfile); // User has one UserProfile
+UserProfile.belongsTo(User); // UserProfile belongs to User
+
 module.exports = User;
