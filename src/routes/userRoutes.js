@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const userController = require('../controllers/userController');
 const db = require('../utils/db');
 
 // Define your routes
@@ -36,6 +36,11 @@ router.get('/total-users', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+// GET user profile
+router.get('/:id/profile', userController.getUserProfile);
+
+// Update user profile
+router.put('/:id/profile', userController.updateUserProfile);
 
 // Export the router
 module.exports = router;
