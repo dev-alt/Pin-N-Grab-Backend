@@ -14,13 +14,18 @@ RUN npm install mysql2
 RUN npm install cors
 RUN npm install sequelize-cli
 
+# Copy the wait-for-it script
+COPY wait-for-it.sh /usr/src/
+RUN chmod +x /usr/src/wait-for-it.sh
+
+# Copy the application code
 COPY . .
 
 # Expose the app's port
 EXPOSE 5000
 
-# Run migrations or SQL script
-RUN npx sequelize-cli db:migrate
+# Wait for MySQL to be up and running, then run migrations
+CMD ["./usr/src/wait-for-it.sh", "mysql:3306", "--", "npx", "sequelize-cli", "db:migrate"]
 
 # Start the backend
-CMD ["node", "nodemon" "app.js"]
+CMD ["node", "app.js"]
