@@ -1,3 +1,7 @@
+/**
+ * This module sets up an Express app with middleware and routes for user authentication and management.
+ * @module app
+ */
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');

@@ -1,6 +1,14 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 
+/**
+ * Represents a user profile in the system.
+ *
+ * @typedef {Object} UserProfile
+ * @property {string} firstName - The first name of the user.
+ * @property {string} lastName - The last name of the user.
+ * @property {...any} ...other - Other profile fields.
+ */
 const UserProfile = sequelize.define('UserProfile', {
   // Define profile-related fields
   firstName: {
@@ -11,7 +19,6 @@ const UserProfile = sequelize.define('UserProfile', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  // ...other profile fields
 });
 
 module.exports = UserProfile;

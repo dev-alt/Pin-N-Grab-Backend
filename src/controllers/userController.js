@@ -1,6 +1,14 @@
 const UserProfile = require('../models/UserProfile');
 const User = require('../models/User');
 
+/**
+ * Retrieves the user profile for a given user ID.
+ * @async
+ * @function
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ * @returns {Object} The user profile object for the given user ID.
+ */
 async function getUserProfile(req, res) {
   try {
     const userId = req.params.id;
@@ -17,6 +25,15 @@ async function getUserProfile(req, res) {
   }
 }
 
+/**
+ * Updates the profile of a user with the given ID.
+ * @async
+ * @function updateUserProfile
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object with a success or error message.
+ * @throws {Error} If there was an error updating the user profile.
+ */
 async function updateUserProfile(req, res) {
   try {
     const userId = req.params.id;
