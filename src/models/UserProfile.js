@@ -7,7 +7,6 @@ const sequelize = require('../utils/db');
  * @typedef {Object} UserProfile
  * @property {string} firstName - The first name of the user.
  * @property {string} lastName - The last name of the user.
- * @property {...any} ...other - Other profile fields.
  */
 const UserProfile = sequelize.define('UserProfile', {
   // Define profile-related fields

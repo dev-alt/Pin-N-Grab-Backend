@@ -15,7 +15,7 @@ router.get('/test-route', (req, res) => {
 router.get('/data', async (req, res) => {
     try {
         const query = 'SELECT * FROM users';
-        const [rows] = await db.query(query); // Use the query method directly
+        const [rows] = await db.query(query); 
         console.log('Rows:', rows);
         res.json(rows);
     } catch (error) {
