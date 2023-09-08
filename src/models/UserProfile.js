@@ -9,7 +9,6 @@ const User = require('./User');
  * @property {string} bio - A brief user biography or description.
  * @property {string} dateOfBirth - The user's date of birth.
  * @property {string} gender - The user's gender.
- * @property {string} interests - User interests, hobbies, or tags (stored as a comma-separated string).
  * @property {string} socialMediaLinks - Links to the user's social media profiles (stored as a JSON object).
  * @property {string} address - The user's address.
  * @property {string} profilePicture - Reference to the user's profile picture.
@@ -24,7 +23,7 @@ const UserProfile = sequelize.define('UserProfile', {
     allowNull: true,
   },
   dateOfBirth: {
-    type: DataTypes.DATEONLY, // Assuming date of birth is just the date without time.
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
   gender: {
@@ -32,7 +31,7 @@ const UserProfile = sequelize.define('UserProfile', {
     allowNull: true,
   },
   interests: {
-    type: DataTypes.STRING, // You can choose a more suitable data type if needed.
+    type: DataTypes.STRING, 
     allowNull: true,
   },
   socialMediaLinks: {
@@ -44,7 +43,7 @@ const UserProfile = sequelize.define('UserProfile', {
     allowNull: true,
   },
   profilePicture: {
-    type: DataTypes.STRING, // Store the reference to the profile picture.
+    type: DataTypes.STRING,
     allowNull: true,
   },
   website: {
