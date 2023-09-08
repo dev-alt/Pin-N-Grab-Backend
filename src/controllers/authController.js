@@ -18,6 +18,7 @@ async function registerUser(req, res) {
   const t = await sequelize.transaction(); // Start a Sequelize transaction
 
   try {
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a user record
