@@ -18,6 +18,11 @@ async function getUserProfile(req, res) {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+    // Check if the user has a profile
+    if (!user.UserProfile) {
+      return res.status(404).json({ error: 'User profile not found' });
+    }
+
     res.json(user.UserProfile);
   } catch (error) {
     console.error('Error fetching user profile:', error);

@@ -1,0 +1,41 @@
+const jwt = require('jsonwebtoken');
+const { secretKey } = require('../config'); // Your secret key
+
+function authenticateJWT(req, res, next) {
+  const token = req.header('Authorization');
+
+  if (!token) {
+    return res.status(401).json({ message: 'Authentication token missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded; // Attach the decoded user data to the request object
+    next(); // Continue to the next middleware or route handler
+  } catch (error) {
+    return res.status(403).json({ message: 'Authentication token is invalid' });
+  }
+}
+
+function checkAuthentication(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({ message: 'Unauthorized: User is not authenticated' });
+  }
+  next();
+}
+
+function checkUserRole(role) {
+  return (req, res, next) => {
+    if (req.user && req.user.role === role) {
+      next();
+    } else {
+      return res.status(403).json({ message: 'Access forbidden: Insufficient permissions' });
+    }
+  };
+}
+
+module.exports = {
+  authenticateJWT,
+  checkAuthentication,
+  checkUserRole,
+};

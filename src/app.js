@@ -5,14 +5,17 @@ const userRoutes = require('./routes/userRoutes');
 const JobRoutes = require('./routes/jobRoutes'); 
 const sequelize = require('./utils/db');
 const UserProfile = require('./models/UserProfile');
+const { swaggerUi, specs } = require('./swagger'); // Import the Swagger configuration
 
 const app = express();
+app.use(cors()); // Use CORS middleware
+app.use(express.json()); // Parse JSON requests
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 // Use userRoutes
 app.use('/users', userRoutes);
 
-app.use(cors()); // Use CORS middleware
-app.use(express.json()); // Parse JSON requests
+
 
 app.use('/api/jobs', JobRoutes); 
 app.use('/api/auth', authRoutes); // Use the auth routes
