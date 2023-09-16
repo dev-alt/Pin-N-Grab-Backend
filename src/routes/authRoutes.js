@@ -71,7 +71,7 @@ router.post('/register', authController.registerUser);
  *         description: Internal server error.
  */
 router.get('/profile', authMiddleware.authenticateJWT, (req, res) => {
-    // Access user data from req.user
+    console.log('Request user:', req.user);
     const { username, email } = req.user;
     res.json({ username, email });
   });
@@ -131,7 +131,7 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ id: user.id, username: user.username }, secretKey, {
         expiresIn: '1h',
       });
-  
+  console.log(token);
       res.json({ token });
   
     } catch (error) {
