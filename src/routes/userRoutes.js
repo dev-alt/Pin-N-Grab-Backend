@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const db = require('../utils/db');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 /**
  * @swagger
@@ -108,7 +109,7 @@ router.get('/total-users', async (req, res) => {
  *         description: Internal server error.
  */
 
-router.get('/:id/profile', userController.getUserProfile);
+router.get('/:id/profile', authMiddleware.authenticateJWT, userController.getUserProfile);
 
 /**
  * @swagger

@@ -132,8 +132,7 @@ router.post('/login', async (req, res) => {
         expiresIn: '1h',
       });
   console.log(token);
-      res.json({ token });
-  
+      res.json({ token, id: user.id }); // Include the user ID in the response
     } catch (error) {
       console.error('Error during login:', error);
       res.status(500).json({ error: 'Internal server error' });
