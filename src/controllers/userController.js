@@ -1,6 +1,20 @@
 const UserProfile = require('../models/UserProfile');
 const User = require('../models/User');
 
+
+
+async function getAllUsers(req, res) {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'username'], // Specify the attributes to retrieve
+    });
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Internal server error, could not retrieve all users' });
+  }
+}
+
 /**
  * Retrieves the user profile for a given user ID.
  * @async
@@ -59,6 +73,7 @@ async function updateUserProfile(req, res) {
 }
 
 module.exports = {
+  getAllUsers,
   getUserProfile,
   updateUserProfile,
 };

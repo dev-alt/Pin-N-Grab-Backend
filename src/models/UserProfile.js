@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
-const User = require('./User'); 
+
 
 /**
  * Represents a user profile in the system.
@@ -60,7 +60,5 @@ const UserProfile = sequelize.define('UserProfile', {
   },
 });
 
-UserProfile.belongsTo(User);
-User.hasOne(UserProfile);
 
 module.exports = UserProfile;

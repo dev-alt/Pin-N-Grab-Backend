@@ -1,14 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 
-/**
- * Represents a user in the system.
- *
- * @typedef {Object} User
- * @property {string} username - The user's username.
- * @property {string} email - The user's email address.
- * @property {string} password - The user's password.
- */
 const User = sequelize.define('User', {
   username: {
     type: DataTypes.STRING,
@@ -35,7 +27,5 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
 });
-
-
 
 module.exports = User;

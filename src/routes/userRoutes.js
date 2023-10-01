@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 /**
  * @swagger
- * /users:
+ * /api/users:
  *   get:
  *     summary: Get a list of users
  *     description: Retrieve a list of all users.
@@ -17,13 +17,13 @@ const authMiddleware = require('../middlewares/authMiddleware');
  *       500:
  *         description: Internal server error.
  */
-router.get('/', (req, res) => {
-  res.send('Hello from user routes!');
-});
+router.get('/all', userController.getAllUsers);
+
+
 
 /**
  * @swagger
- * /users/test-route:
+ * /api/users/test-route:
  *   get:
  *     summary: Test route
  *     description: A test route.
@@ -38,7 +38,7 @@ router.get('/test-route', (req, res) => {
 
 /**
  * @swagger
- * /users/data:
+ * /api/users/data:
  *   get:
  *     summary: Get user data
  *     description: Retrieve data from the "Users" table.
@@ -63,7 +63,7 @@ router.get('/data', async (req, res) => {
 
 /**
  * @swagger
- * /users/total-users:
+ * /api/users/total-users:
  *   get:
  *     summary: Get total user count
  *     description: Retrieve the total number of users from the "Users" table.
@@ -88,7 +88,7 @@ router.get('/total-users', async (req, res) => {
 });
 /**
  * @swagger
- * /users/{id}/profile:
+ * /api/users/{id}/profile:
  *   get:
  *     summary: Get user profile by ID
  *     description: Retrieve user profile information by ID.
@@ -113,7 +113,7 @@ router.get('/:id/profile', authMiddleware.authenticateJWT, userController.getUse
 
 /**
  * @swagger
- * /users/{id}/profile:
+ * /api/users/{id}/profile:
  *   put:
  *     summary: Update user profile by ID
  *     description: Update user profile information by ID.

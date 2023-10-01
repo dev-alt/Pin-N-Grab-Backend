@@ -26,7 +26,7 @@ const options = {
     },
     servers: [
         {
-          url: 'http://localhost:5000',
+          url: 'http://localhost:5050',
         },
       ],
       tags: [
@@ -38,6 +38,9 @@ const options = {
         },
         {
           name: 'User', 
+        },
+        {
+          name: 'Email', 
         },
       ],
     },
