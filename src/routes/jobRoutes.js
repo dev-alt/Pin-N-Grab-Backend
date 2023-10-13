@@ -111,4 +111,32 @@ router.put('/update/:id', jobController.updateJobById);
  */
 router.get('/get/:id', jobController.getJobById);
 
+router.get('/all', jobController.getJobs);
+
+
+/**
+ * @swagger
+ * /api/locations/{id}:
+ *   get:
+ *     summary: Get location by ID
+ *     description: Retrieve location data by its ID.
+ *     tags: [Locations]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the location to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Location retrieved successfully.
+ *       404:
+ *         description: Location not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.get('/locations/all', jobController.getAllLocations);
+
+
 module.exports = router;

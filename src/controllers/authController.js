@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const UserProfile = require('../models/UserProfile'); // Import UserProfile model
+const UserProfile = require('../models/UserProfile');
 const sequelize = require('../utils/db');
 
 /**
@@ -11,9 +11,6 @@ const sequelize = require('../utils/db');
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A Promise that resolves when the user is registered.
  */
-
-
-
 async function registerUser(req, res) {
   const { username, email, password, firstName, lastName } = req.body;
 

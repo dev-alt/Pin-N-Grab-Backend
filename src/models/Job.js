@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const Category = require('./Category'); 
 const User = require('./User'); 
+const Location = require('./Location');
 
 const Job = sequelize.define('Job', {
   title: {
@@ -10,10 +11,6 @@ const Job = sequelize.define('Job', {
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  location: {
-    type: DataTypes.STRING,
     allowNull: false,
   },
   deadline: {
@@ -44,5 +41,12 @@ Job.belongsTo(User, {
   indexes: [{ fields: ['user_id'] }],
 });
 Job.belongsTo(Category, { foreignKey: 'category_id' });
+Job.belongsTo(Location, {
+  foreignKey: {
+    name: 'location_id',
+    allowNull: false,
+  },
+});
+
 
 module.exports = Job;
