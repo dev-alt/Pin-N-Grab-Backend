@@ -16,8 +16,6 @@ async function createJob(req, res) {
             location_id,
             deadline,
             paymentType,
-            skillLevel,
-            experienceRequired,
             jobStatus,
             category_id,
         } = req.body;
@@ -32,8 +30,6 @@ async function createJob(req, res) {
             description,
             location_id,
             deadline,
-            paymentType,
-            skillLevel,
             experienceRequired,
             jobStatus, 
             category_id,

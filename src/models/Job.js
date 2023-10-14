@@ -21,14 +21,6 @@ const Job = sequelize.define('Job', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  skillLevel: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  experienceRequired: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   jobStatus: {
     type: DataTypes.ENUM('Open', 'Closed', 'Deleted'), 
     allowNull: false,

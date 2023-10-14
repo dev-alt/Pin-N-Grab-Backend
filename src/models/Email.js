@@ -25,16 +25,16 @@ const Email = sequelize.define('Email', {
   },
 },
   {
-    tableName: 'Email', // Specify the exact table name
+    tableName: 'Email', 
   });
   Email.belongsTo(User, {
     as: 'sender',
-    foreignKey: 'senderUserId', // Update to 'senderUserId'
+    foreignKey: 'senderUserId', 
   });
   
   Email.belongsTo(User, {
     as: 'recipient',
-    foreignKey: 'recipientUserId', // Update to 'recipientUserId'
+    foreignKey: 'recipientUserId', 
   });
   
 module.exports = Email;
