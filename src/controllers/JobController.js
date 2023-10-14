@@ -22,6 +22,11 @@ async function createJob(req, res) {
             category_id,
         } = req.body;
 
+        const allowedStatusValues = ['Open', 'Closed', 'Deleted'];
+        if (!allowedStatusValues.includes(jobStatus)) {
+            return res.status(400).json({ error: 'Invalid jobStatus value' });
+        }
+
         const job = await Job.create({
             title,
             description,
@@ -30,7 +35,7 @@ async function createJob(req, res) {
             paymentType,
             skillLevel,
             experienceRequired,
-            jobStatus,
+            jobStatus, 
             category_id,
         });
 

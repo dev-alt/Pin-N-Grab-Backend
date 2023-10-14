@@ -7,29 +7,45 @@ const jobController = require('../controllers/jobController');
  * /api/jobs/create:
  *   post: # Specify the HTTP method as POST
  *     summary: Create a new job
- *     description: |
- *       Create a new job posting.
- *       You can provide more detailed information here.
+ *     description: Create a new job posting.
  *     tags: [Jobs]
- *     parameters:
- *       - in: body
- *         name: job
- *         description: The job object to create.
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             title:
- *               type: string
- *             description:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               location_id:
+ *                 type: integer
+ *               deadline:
+ *                 type: string
+ *                 format: date
+ *               paymentType:
+ *                 type: string
+ *               skillLevel:
+ *                 type: string
+ *               experienceRequired:
+ *                 type: string
+ *               jobStatus:
+ *                 type: string
+ *                 enum: ['Open', 'Closed', 'Deleted']
+ *               category_id:
+ *                 type: integer
  *     responses:
- *       200:
+ *       201:
  *         description: Job created successfully.
+ *       400:
+ *         description: Invalid jobStatus value.
  *       500:
  *         description: Internal server error.
  */
 router.post('/create', jobController.createJob);
+
 
 /**
  * @swagger

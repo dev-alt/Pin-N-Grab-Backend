@@ -30,7 +30,7 @@ const Job = sequelize.define('Job', {
     allowNull: false,
   },
   jobStatus: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM('Open', 'Closed', 'Deleted'), 
     allowNull: false,
   },
 });

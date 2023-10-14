@@ -49,6 +49,7 @@ router.get('/test-route', (req, res) => {
  *       500:
  *         description: Internal server error.
  */
+
 router.get('/data', async (req, res) => {
   try {
     const query = 'SELECT * FROM Users';
