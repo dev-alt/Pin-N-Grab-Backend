@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authController = require('../controllers/authController');
-const bcrypt = require('bcrypt');
-const authMiddleware = require('../middlewares/authMiddleware');
-const User = require('../models/User'); 
-const jwt = require('jsonwebtoken');
-const { secretKey } = require('../config'); // Import the secretKey variable
+const authController = require("../controllers/authController");
+const bcrypt = require("bcrypt");
+const authMiddleware = require("../middlewares/authMiddleware");
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const { secretKey } = require("../config"); // Import the secretKey variable
 /**
  * @swagger
  * /api/auth/register:
@@ -40,7 +40,7 @@ const { secretKey } = require('../config'); // Import the secretKey variable
  *       500:
  *         description: Internal server error.
  */
-router.post('/register', authController.registerUser);
+router.post("/register", authController.registerUser);
 
 /**
  * @swagger
@@ -70,11 +70,11 @@ router.post('/register', authController.registerUser);
  *       500:
  *         description: Internal server error.
  */
-router.get('/profile', authMiddleware.authenticateJWT, (req, res) => {
-    console.log('Request user:', req.user);
-    const { username, email } = req.user;
-    res.json({ username, email });
-  });
+router.get("/profile", authMiddleware.authenticateJWT, (req, res) => {
+  console.log("Request user:", req.user);
+  const { username, email } = req.user;
+  res.json({ username, email });
+});
 
 /**
  * @swagger
@@ -109,34 +109,38 @@ router.get('/profile', authMiddleware.authenticateJWT, (req, res) => {
  *       500:
  *         description: Internal server error.
  */
-router.post('/login', async (req, res) => {
-    try {
-      const { username, password } = req.body;
-      console.log(req.body); // Log the request body to check the received data
-      // Find the user by username
-      const user = await User.findOne({ where: { username } });
-  
-      if (!user) {
-        return res.status(401).json({ error: 'User not found' });
-      }
-  
-      // Check if the provided password matches the hashed password in the database
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-  
-      if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Invalid password' });
-      }
-  
-      // If authentication is successful, generate and send the JWT
-      const token = jwt.sign({ id: user.id, username: user.username }, secretKey, {
-        expiresIn: '1h',
-      });
-  console.log(token);
-      res.json({ token, id: user.id }); // Include the user ID in the response
-    } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ error: 'Internal server error' });
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    console.log(req.body); // Log the request body to check the received data
+    // Find the user by username
+    const user = await User.findOne({ where: { username } });
+
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
     }
-  });
+
+    // Check if the provided password matches the hashed password in the database
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    // If authentication is successful, generate and send the JWT
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      secretKey,
+      {
+        expiresIn: "1h",
+      }
+    );
+    console.log(token);
+    res.json({ token, id: user.id }); // Include the user ID in the response
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Applications', {
+    return queryInterface.createTable("Applications", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -11,21 +11,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users', // Make sure this matches your User model
-          key: 'id',
+          model: "Users", // Make sure this matches your User model
+          key: "id",
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       job_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Jobs', // Make sure this matches your Job model
-          key: 'id',
+          model: "Jobs", // Make sure this matches your Job model
+          key: "id",
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       applicationText: {
         type: Sequelize.TEXT,
@@ -39,6 +39,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Applications');
+    return queryInterface.dropTable("Applications");
   },
 };

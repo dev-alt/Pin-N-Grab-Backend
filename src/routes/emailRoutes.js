@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const emailController = require('../controllers/emailController');
+const authMiddleware = require("../middlewares/authMiddleware");
+const emailController = require("../controllers/emailController");
 
 /**
  * @swagger
@@ -33,7 +33,7 @@ const emailController = require('../controllers/emailController');
  *       500:
  *         description: Internal server error.
  */
-router.post('/send', authMiddleware.authenticateJWT, emailController.sendEmail);
+router.post("/send", authMiddleware.authenticateJWT, emailController.sendEmail);
 
 /**
  * @swagger
@@ -50,7 +50,7 @@ router.post('/send', authMiddleware.authenticateJWT, emailController.sendEmail);
  *       500:
  *         description: Internal server error.
  */
-router.get('/inbox', authMiddleware.authenticateJWT, emailController.getInbox);
+router.get("/inbox", authMiddleware.authenticateJWT, emailController.getInbox);
 
 /**
  * @swagger
@@ -76,7 +76,7 @@ router.get('/inbox', authMiddleware.authenticateJWT, emailController.getInbox);
  *       500:
  *         description: Internal server error.
  */
-router.get('/:id', authMiddleware.authenticateJWT, emailController.viewEmail);
+router.get("/:id", authMiddleware.authenticateJWT, emailController.viewEmail);
 
 /**
  * @swagger
@@ -102,7 +102,11 @@ router.get('/:id', authMiddleware.authenticateJWT, emailController.viewEmail);
  *       500:
  *         description: Internal server error.
  */
-router.put('/:id/star', authMiddleware.authenticateJWT, emailController.starEmail);
+router.put(
+  "/:id/star",
+  authMiddleware.authenticateJWT,
+  emailController.starEmail
+);
 
 /**
  * @swagger
@@ -128,6 +132,10 @@ router.put('/:id/star', authMiddleware.authenticateJWT, emailController.starEmai
  *       500:
  *         description: Internal server error.
  */
-router.delete('/:id', authMiddleware.authenticateJWT, emailController.deleteEmail);
+router.delete(
+  "/:id",
+  authMiddleware.authenticateJWT,
+  emailController.deleteEmail
+);
 
 module.exports = router;

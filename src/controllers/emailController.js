@@ -1,5 +1,5 @@
-const Email = require('../models/Email'); // Import your Email model
-const User = require('../models/User'); // Import your User model
+const Email = require("../models/Email"); // Import your Email model
+const User = require("../models/User"); // Import your User model
 
 /**
  * Sends an email from one user to another.
@@ -9,34 +9,37 @@ const User = require('../models/User'); // Import your User model
  * @param {Object} res - The HTTP response object.
  */
 async function sendEmail(req, res) {
-    try {
-      const { senderUserId, recipientUserId, subject, message, date, content } = req.body;
-  
-      // Check if sender and recipient users exist
-      const senderUser = await User.findByPk(senderUserId);
-      const recipientUser = await User.findByPk(recipientUserId);
-  
-      if (!senderUser || !recipientUser) {
-        return res.status(404).json({ error: 'Sender or recipient user not found' });
-      }
-  
-      // Create a new email record
-      const email = await Email.create({
-        senderUserId,
-        recipientUserId,
-        subject,
-        date, // Include the date field from the request body
-        content, // Include the content field from the request body
-        // Add any other email-related fields here
-      });
-  
-      res.status(201).json({ message: 'Email sent successfully', email });
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ error: 'Internal server error' });
+  try {
+    const { senderUserId, recipientUserId, subject, message, date, content } =
+      req.body;
+
+    // Check if sender and recipient users exist
+    const senderUser = await User.findByPk(senderUserId);
+    const recipientUser = await User.findByPk(recipientUserId);
+
+    if (!senderUser || !recipientUser) {
+      return res
+        .status(404)
+        .json({ error: "Sender or recipient user not found" });
     }
+
+    // Create a new email record
+    const email = await Email.create({
+      senderUserId,
+      recipientUserId,
+      subject,
+      date, // Include the date field from the request body
+      content, // Include the content field from the request body
+      // Add any other email-related fields here
+    });
+
+    res.status(201).json({ message: "Email sent successfully", email });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-  
+}
+
 /**
  * Retrieves the inbox (received emails) for a user.
  * @async
@@ -59,8 +62,8 @@ async function getInbox(req, res) {
 
     res.json(inbox);
   } catch (error) {
-    console.error('Error fetching inbox:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching inbox:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -87,8 +90,8 @@ async function getStarredEmails(req, res) {
 
     res.json(starredEmails);
   } catch (error) {
-    console.error('Error fetching starred emails:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching starred emails:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -107,60 +110,60 @@ async function deleteEmail(req, res) {
     const email = await Email.findByPk(emailId);
 
     if (!email) {
-      return res.status(404).json({ error: 'Email not found' });
+      return res.status(404).json({ error: "Email not found" });
     }
 
     // Perform the deletion
     await email.destroy();
 
-    res.json({ message: 'Email deleted successfully' });
+    res.json({ message: "Email deleted successfully" });
   } catch (error) {
-    console.error('Error deleting email:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error deleting email:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 async function viewEmail(req, res) {
-    try {
-      const emailId = req.params.id;
-  
-      // Retrieve the email by its ID
-      const email = await Email.findByPk(emailId);
-  
-      if (!email) {
-        return res.status(404).json({ error: 'Email not found' });
-      }
-  
-      // You can add additional logic or processing here if needed
-  
-      res.json(email);
-    } catch (error) {
-      console.error('Error viewing email:', error);
-      res.status(500).json({ error: 'Internal server error' });
+  try {
+    const emailId = req.params.id;
+
+    // Retrieve the email by its ID
+    const email = await Email.findByPk(emailId);
+
+    if (!email) {
+      return res.status(404).json({ error: "Email not found" });
     }
+
+    // You can add additional logic or processing here if needed
+
+    res.json(email);
+  } catch (error) {
+    console.error("Error viewing email:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-  async function starEmail(req, res) {
-    try {
-      const emailId = req.params.id;
-  
-      // Retrieve the email by its ID
-      const email = await Email.findByPk(emailId);
-  
-      if (!email) {
-        return res.status(404).json({ error: 'Email not found' });
-      }
-  
-      // Toggle the 'isStarred' property
-      email.isStarred = !email.isStarred;
-  
-      // Save the changes to the email
-      await email.save();
-  
-      res.json({ message: 'Email starred/unstarred successfully', email });
-    } catch (error) {
-      console.error('Error starring email:', error);
-      res.status(500).json({ error: 'Internal server error' });
+}
+async function starEmail(req, res) {
+  try {
+    const emailId = req.params.id;
+
+    // Retrieve the email by its ID
+    const email = await Email.findByPk(emailId);
+
+    if (!email) {
+      return res.status(404).json({ error: "Email not found" });
     }
+
+    // Toggle the 'isStarred' property
+    email.isStarred = !email.isStarred;
+
+    // Save the changes to the email
+    await email.save();
+
+    res.json({ message: "Email starred/unstarred successfully", email });
+  } catch (error) {
+    console.error("Error starring email:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
+}
 
 // You can add more email-related controller methods as needed
 

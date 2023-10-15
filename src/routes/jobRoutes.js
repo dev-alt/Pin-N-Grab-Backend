@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const jobController = require('../controllers/jobController');
+const jobController = require("../controllers/jobController");
 
 /**
  * @swagger
@@ -40,8 +40,7 @@ const jobController = require('../controllers/jobController');
  *       500:
  *         description: Internal server error.
  */
-router.post('/create', jobController.createJob);
-
+router.post("/create", jobController.createJob);
 
 /**
  * @swagger
@@ -63,7 +62,7 @@ router.post('/create', jobController.createJob);
  *       500:
  *         description: Internal server error.
  */
-router.post('/delete/:id', jobController.deleteJobById);
+router.post("/delete/:id", jobController.deleteJobById);
 
 /**
  * @swagger
@@ -99,7 +98,7 @@ router.post('/delete/:id', jobController.deleteJobById);
  *       500:
  *         description: Internal server error.
  */
-router.put('/update/:id', jobController.updateJobById);
+router.put("/update/:id", jobController.updateJobById);
 
 /**
  * @swagger
@@ -121,10 +120,9 @@ router.put('/update/:id', jobController.updateJobById);
  *       500:
  *         description: Internal server error.
  */
-router.get('/get/:id', jobController.getJobById);
+router.get("/get/:id", jobController.getJobById);
 
-router.get('/all', jobController.getJobs);
-
+router.get("/all", jobController.getJobs);
 
 /**
  * @swagger
@@ -148,7 +146,6 @@ router.get('/all', jobController.getJobs);
  *       500:
  *         description: Internal server error.
  */
-router.get('/locations/all', jobController.getAllLocations);
-
+router.get("/locations/all", jobController.getAllLocations);
 
 module.exports = router;

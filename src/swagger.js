@@ -1,5 +1,5 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 /**
  * Swagger options object.
@@ -18,33 +18,33 @@ const swaggerUi = require('swagger-ui-express');
  */
 const options = {
   swaggerDefinition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Your API Documentation',
-      version: '1.0.0',
-      description: 'Documentation for your API',
+      title: "Your API Documentation",
+      version: "1.0.0",
+      description: "Documentation for your API",
     },
     servers: [
-        {
-          url: 'http://localhost:5050',
-        },
-      ],
-      tags: [
-        {
-          name: 'Auth', 
-        },
-        {
-          name: 'Jobs', 
-        },
-        {
-          name: 'User', 
-        },
-        {
-          name: 'Email', 
-        },
-      ],
-    },
-  apis: ['./src/routes/*.js'], 
+      {
+        url: "http://localhost:5050",
+      },
+    ],
+    tags: [
+      {
+        name: "Auth",
+      },
+      {
+        name: "Jobs",
+      },
+      {
+        name: "User",
+      },
+      {
+        name: "Email",
+      },
+    ],
+  },
+  apis: ["./src/routes/*.js"],
 };
 
 const specs = swaggerJsdoc(options);

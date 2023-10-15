@@ -1,8 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/userController');
-const db = require('../utils/db');
-const authMiddleware = require('../middlewares/authMiddleware');
+const userController = require("../controllers/userController");
+const db = require("../utils/db");
+const authMiddleware = require("../middlewares/authMiddleware");
+const saveJobController = require("../controllers/saveJobController");
 
 /**
  * @swagger
@@ -17,9 +18,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
  *       500:
  *         description: Internal server error.
  */
-router.get('/all', userController.getAllUsers);
-
-
+router.get("/all", userController.getAllUsers);
 
 /**
  * @swagger
@@ -32,9 +31,13 @@ router.get('/all', userController.getAllUsers);
  *       200:
  *         description: A success message.
  */
-router.get('/test-route', (req, res) => {
-  res.json({ message: 'This is a test route' });
+router.get("/test-route", (req, res) => {
+  res.json({ message: "This is a test route" });
 });
+
+router.post("/:userId/saveJob/:jobId", saveJobController.saveJob);
+
+router.delete("/:userId/unsaveJob/:jobId", saveJobController.unsaveJob);
 
 /**
  * @swagger
@@ -50,15 +53,15 @@ router.get('/test-route', (req, res) => {
  *         description: Internal server error.
  */
 
-router.get('/data', async (req, res) => {
+router.get("/data", async (req, res) => {
   try {
-    const query = 'SELECT * FROM Users';
+    const query = "SELECT * FROM Users";
     const [rows] = await db.query(query);
-    console.log('Rows:', rows);
+    console.log("Rows:", rows);
     res.json(rows);
   } catch (error) {
-    console.error('Error fetching data from the database:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching data from the database:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -75,16 +78,16 @@ router.get('/data', async (req, res) => {
  *       500:
  *         description: Internal server error.
  */
-router.get('/total-users', async (req, res) => {
+router.get("/total-users", async (req, res) => {
   try {
-    const query = 'SELECT COUNT(*) AS totalUsers FROM Users';
+    const query = "SELECT COUNT(*) AS totalUsers FROM Users";
     const [rows] = await db.query(query);
     const totalUsers = rows[0].totalUsers;
 
     res.json({ totalUsers });
   } catch (error) {
-    console.error('Error fetching total users from the database:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching total users from the database:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 /**
@@ -110,7 +113,11 @@ router.get('/total-users', async (req, res) => {
  *         description: Internal server error.
  */
 
-router.get('/:id/profile', authMiddleware.authenticateJWT, userController.getUserProfile);
+router.get(
+  "/:id/profile",
+  authMiddleware.authenticateJWT,
+  userController.getUserProfile
+);
 
 /**
  * @swagger
@@ -118,7 +125,7 @@ router.get('/:id/profile', authMiddleware.authenticateJWT, userController.getUse
  *   put:
  *     summary: Update user profile by ID
  *     description: Update user profile information by ID.
- *     tags: 
+ *     tags:
  *       - User
  *     parameters:
  *       - in: path
@@ -143,8 +150,7 @@ router.get('/:id/profile', authMiddleware.authenticateJWT, userController.getUse
  *       500:
  *         description: Internal server error.
  */
-router.put('/:id/profile', userController.updateUserProfile);
-
+router.put("/:id/profile", userController.updateUserProfile);
 
 // Export the router
 module.exports = router;

@@ -1,23 +1,7 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../utils/db');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../utils/db");
 
-
-/**
- * Represents a user profile in the system.
- *
- * @typedef {Object} UserProfile
- * @property {string} bio - A brief user biography or description.
- * @property {string} dateOfBirth - The user's date of birth.
- * @property {string} gender - The user's gender.
- * @property {string} socialMediaLinks - Links to the user's social media profiles (stored as a JSON object).
- * @property {string} address - The user's address.
- * @property {string} profilePicture - Reference to the user's profile picture.
- * @property {string} website - Link to the user's personal website or blog.
- * @property {string} contactEmail - An alternative email address.
- * @property {string} contactPhone - An alternative phone number.
- */
-const UserProfile = sequelize.define('UserProfile', {
-  // Define profile-related fields
+const UserProfile = sequelize.define("UserProfile", {
   bio: {
     type: DataTypes.TEXT,
     allowNull: true,
@@ -31,11 +15,11 @@ const UserProfile = sequelize.define('UserProfile', {
     allowNull: true,
   },
   interests: {
-    type: DataTypes.STRING, 
+    type: DataTypes.STRING,
     allowNull: true,
   },
   socialMediaLinks: {
-    type: DataTypes.JSON, // Store social media links as a JSON object.
+    type: DataTypes.JSON,
     allowNull: true,
   },
   address: {
@@ -59,6 +43,5 @@ const UserProfile = sequelize.define('UserProfile', {
     allowNull: true,
   },
 });
-
 
 module.exports = UserProfile;

@@ -1,17 +1,17 @@
-const UserProfile = require('../models/UserProfile');
-const User = require('../models/User');
-
-
+const UserProfile = require("../models/UserProfile");
+const User = require("../models/User");
 
 async function getAllUsers(req, res) {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'username'], // Specify the attributes to retrieve
+      attributes: ["id", "username"], // Specify the attributes to retrieve
     });
     res.json(users);
   } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Internal server error, could not retrieve all users' });
+    console.error("Error fetching users:", error);
+    res
+      .status(500)
+      .json({ error: "Internal server error, could not retrieve all users" });
   }
 }
 
@@ -30,17 +30,17 @@ async function getUserProfile(req, res) {
       include: UserProfile,
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
     // Check if the user has a profile
     if (!user.UserProfile) {
-      return res.status(404).json({ error: 'User profile not found' });
+      return res.status(404).json({ error: "User profile not found" });
     }
 
     res.json(user.UserProfile);
   } catch (error) {
-    console.error('Error fetching user profile:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -61,14 +61,14 @@ async function updateUserProfile(req, res) {
       include: UserProfile,
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
     user.UserProfile = updatedProfile;
     await user.save();
-    res.json({ message: 'Profile updated successfully' });
+    res.json({ message: "Profile updated successfully" });
   } catch (error) {
-    console.error('Error updating user profile:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 

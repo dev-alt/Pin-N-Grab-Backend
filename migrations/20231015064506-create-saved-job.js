@@ -2,52 +2,44 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("UserReviews", {
+    await queryInterface.createTable("SavedJobs", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      reviewText: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      rating: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      jobId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Jobs",
-          key: "id",
-        },
-        allowNull: false,
-      },
-      reviewerUserId: {
-        type: Sequelize.INTEGER,
         references: {
           model: "Users",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      jobId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Jobs",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal(
-          "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-        ),
-        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("UserReviews");
+    await queryInterface.dropTable("SavedJobs");
   },
 };
