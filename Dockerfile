@@ -9,11 +9,6 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN npm install express
-RUN npm install mysql2
-RUN npm install cors
-RUN npm install sequelize-cli
-RUN npm install bcrypt      
 RUN apt-get -q update && apt-get -qy install netcat
 
 # Copy the wait-for script

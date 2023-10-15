@@ -1,4 +1,5 @@
 const Job = require('../models/Job');
+const User = require('../models/User');
 const Location = require('../models/Location');
 
 
@@ -30,7 +31,7 @@ async function createJob(req, res) {
             description,
             location_id,
             deadline,
-            experienceRequired,
+            paymentType,
             jobStatus, 
             category_id,
         });
@@ -63,7 +64,9 @@ async function getJobById(req, res) {
 }
 async function getJobs(req, res) {
     try {
-        const jobs = await Job.findAll(); // Use findAll to retrieve all job listings
+        const jobs = await Job.findAll({
+            include: [{ model: User, attributes: ['username'] }],
+        });
         console.log('All job listings:',);
         if (!jobs) {
             return res.status(404).json({ error: 'No job listings found' });
@@ -74,6 +77,7 @@ async function getJobs(req, res) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
 
 
 /**

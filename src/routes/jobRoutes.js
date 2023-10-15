@@ -27,10 +27,6 @@ const jobController = require('../controllers/jobController');
  *                 format: date
  *               paymentType:
  *                 type: string
- *               skillLevel:
- *                 type: string
- *               experienceRequired:
- *                 type: string
  *               jobStatus:
  *                 type: string
  *                 enum: ['Open', 'Closed', 'Deleted']
@@ -60,7 +56,7 @@ router.post('/create', jobController.createJob);
  *         required: true
  *         description: The ID of the job to delete.
  *         schema:
- *           type: integer
+ *           type: integern
  *     responses:
  *       200:
  *         description: Job deleted successfully.
