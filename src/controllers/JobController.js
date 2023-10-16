@@ -13,6 +13,7 @@ async function createJob(req, res) {
     const {
       title,
       description,
+      details,
       location_id,
       deadline,
       paymentAmount,
@@ -28,6 +29,7 @@ async function createJob(req, res) {
     const job = await Job.create({
       title,
       description,
+      details,
       location_id,
       deadline,
       paymentAmount,

@@ -27,7 +27,7 @@ async function getUserProfile(req, res) {
   try {
     const userId = req.params.id;
     const user = await User.findByPk(userId, {
-      include: UserProfile,
+      include: { model: UserProfile, attributes: { exclude: ['userId'] } },
     });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -37,26 +37,20 @@ async function getUserProfile(req, res) {
       return res.status(404).json({ error: "User profile not found" });
     }
 
-    res.json(user.UserProfile);
+    res.json({
+      username: user.username,
+      profile: user.UserProfile,
+    });
   } catch (error) {
     console.error("Error fetching user profile:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
 
-/**
- * Updates the profile of a user with the given ID.
- * @async
- * @function updateUserProfile
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Object} The response object with a success or error message.
- * @throws {Error} If there was an error updating the user profile.
- */
 async function updateUserProfile(req, res) {
   try {
     const userId = req.params.id;
-    const updatedProfile = req.body; // Ensure you validate and sanitize the data
+    const updatedProfile = req.body; 
     const user = await User.findByPk(userId, {
       include: UserProfile,
     });

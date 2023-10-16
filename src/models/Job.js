@@ -19,7 +19,7 @@ const Job = sequelize.define("Job", {
     allowNull: false,
   },
   paymentAmount: {
-    type: DataTypes.STRING,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
   jobStatus: {

@@ -114,9 +114,7 @@ router.get("/total-users", async (req, res) => {
  */
 
 router.get(
-  "/:id/profile",
-  authMiddleware.authenticateJWT,
-  userController.getUserProfile
+  "/:id/profile", userController.getUserProfile
 );
 
 /**

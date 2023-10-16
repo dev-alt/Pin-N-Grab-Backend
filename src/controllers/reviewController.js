@@ -1,5 +1,6 @@
 const Review = require("../models/UserReview");
 const User = require("../models/User");
+const Job = require("../models/Job");
 
 async function getUserReviews(req, res) {
   try {
@@ -8,7 +9,23 @@ async function getUserReviews(req, res) {
     // Query the database to fetch reviews for the specified user
     const userReviews = await Review.findAll({
       where: { reviewerUserId: userId },
-      include: [{ model: User, as: "reviewer", attributes: ["username"] }],
+      include: [
+        {
+          model: User,
+          as: "reviewer",
+          attributes: ["username"],
+        },
+        {
+          model: Job,
+          attributes: ["id", "title"], // Include the job details you want to retrieve
+          include: [
+            {
+              model: User, // No alias is needed here
+              attributes: ["username"],
+            },
+          ],
+        },
+      ],
     });
 
     if (!userReviews) {
