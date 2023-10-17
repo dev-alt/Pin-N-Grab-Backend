@@ -1,7 +1,8 @@
 const Job = require("../models/Job");
 const User = require("../models/User");
 const Location = require("../models/Location");
-
+const Application = require("../models/Application");
+const SavedJob = require("../models/SaveJob");
 /**
  * Creates a new job listing.
  * @async
@@ -63,10 +64,20 @@ async function getJobById(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
 async function getJobs(req, res) {
   try {
     const jobs = await Job.findAll({
-      include: [{ model: User, attributes: ["username"] }],
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+        {
+          model: Application,
+          include: [{ model: User, attributes: ["username"] }],
+        },
+      ],
     });
     console.log("All job listings:");
     if (!jobs) {
@@ -79,12 +90,41 @@ async function getJobs(req, res) {
   }
 }
 
-/**
- * Updates a job listing by its ID.
- * @async
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
+async function getSavedJobs(req, res) {
+  const { id } = req.params;
+
+  try {
+    // Find all saved jobs for the specified user
+    const savedJobs = await SavedJob.findAll({
+      where: { userId: id },
+      include: [
+        {
+          model: Job, // Include the associated job
+          include: [
+            {
+              model: User,
+              attributes: ["username"],
+            },
+            {
+              model: Application,
+              include: [{ model: User, attributes: ["username"] }],
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!savedJobs) {
+      return res.status(404).json({ error: "No saved jobs found for this user" });
+    }
+
+    res.json(savedJobs);
+  } catch (error) {
+    console.error("Error fetching saved jobs:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 async function updateJobById(req, res) {
   try {
     const jobId = req.params.id;
@@ -153,4 +193,5 @@ module.exports = {
   updateJobById,
   deleteJobById,
   getAllLocations,
+  getSavedJobs,
 };

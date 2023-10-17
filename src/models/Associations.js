@@ -13,7 +13,7 @@ User.hasMany(Email, { foreignKey: "senderUserId", as: "sentEmails" });
 User.hasMany(Email, { foreignKey: "recipientUserId", as: "receivedEmails" });
 User.hasMany(Application, { foreignKey: "user_id" });
 User.hasOne(UserProfile);
-User.hasMany(SavedJob, { foreignKey: "userId" }); // Place SavedJob associations here
+User.hasMany(SavedJob, { foreignKey: "userId" }); 
 
 Job.hasMany(Application, { foreignKey: "job_id" });
 Job.belongsTo(User, {
@@ -24,7 +24,8 @@ Job.belongsTo(Category, { foreignKey: "category_id" });
 Job.belongsTo(Location, {
   foreignKey: { name: "location_id", allowNull: false },
 });
-Job.hasMany(SavedJob, { foreignKey: "jobId" }); // Place SavedJob associations here
+Job.hasMany(SavedJob, { foreignKey: "jobId" }); 
+SavedJob.belongsTo(Job, { foreignKey: "jobId" });
 
 UserReview.belongsTo(User, {
   foreignKey: "reviewerUserId",
@@ -32,6 +33,8 @@ UserReview.belongsTo(User, {
   onDelete: "CASCADE",
 });
 UserReview.belongsTo(Job, { foreignKey: "jobId", onDelete: "CASCADE" });
+
+Application.belongsTo(User, { foreignKey: "user_id" });
 
 module.exports = {
   User,
