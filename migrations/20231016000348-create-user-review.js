@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('UserReviews', {
+    await queryInterface.createTable("UserReviews", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       type: {
-        type: Sequelize.ENUM('worker', 'client'),
+        type: Sequelize.ENUM("worker", "client"),
         allowNull: false,
       },
       reviewText: {
@@ -29,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserReviews');
+    await queryInterface.dropTable("UserReviews");
   },
 };

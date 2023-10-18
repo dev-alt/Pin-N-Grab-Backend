@@ -5,7 +5,7 @@ const Application = sequelize.define("Application", {
   applicationText: {
     type: DataTypes.TEXT,
     allowNull: false,
-  }  
+  },
 });
 
 module.exports = Application;

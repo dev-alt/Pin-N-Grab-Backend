@@ -67,31 +67,6 @@ router.get("/data", async (req, res) => {
 
 /**
  * @swagger
- * /api/users/total-users:
- *   get:
- *     summary: Get total user count
- *     description: Retrieve the total number of users from the "Users" table.
- *     tags: [User]
- *     responses:
- *       200:
- *         description: Total user count retrieved successfully.
- *       500:
- *         description: Internal server error.
- */
-router.get("/total-users", async (req, res) => {
-  try {
-    const query = "SELECT COUNT(*) AS totalUsers FROM Users";
-    const [rows] = await db.query(query);
-    const totalUsers = rows[0].totalUsers;
-
-    res.json({ totalUsers });
-  } catch (error) {
-    console.error("Error fetching total users from the database:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-/**
- * @swagger
  * /api/users/{id}/profile:
  *   get:
  *     summary: Get user profile by ID
@@ -113,9 +88,7 @@ router.get("/total-users", async (req, res) => {
  *         description: Internal server error.
  */
 
-router.get(
-  "/:id/profile", userController.getUserProfile
-);
+router.get("/:id/profile", userController.getUserProfile);
 
 /**
  * @swagger

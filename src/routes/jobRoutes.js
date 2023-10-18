@@ -126,7 +126,6 @@ router.get("/all", jobController.getJobs);
 
 router.get("/saved/:id", jobController.getSavedJobs);
 
-
 /**
  * @swagger
  * /api/locations/{id}:

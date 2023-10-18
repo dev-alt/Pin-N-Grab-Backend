@@ -115,7 +115,9 @@ async function getSavedJobs(req, res) {
     });
 
     if (!savedJobs) {
-      return res.status(404).json({ error: "No saved jobs found for this user" });
+      return res
+        .status(404)
+        .json({ error: "No saved jobs found for this user" });
     }
 
     res.json(savedJobs);

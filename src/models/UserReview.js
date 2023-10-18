@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/db");
 
-const UserReview = sequelize.define('UserReview', {
+const UserReview = sequelize.define("UserReview", {
   reviewText: {
     type: DataTypes.TEXT,
     allowNull: false,
@@ -11,7 +11,7 @@ const UserReview = sequelize.define('UserReview', {
     allowNull: false,
   },
   type: {
-    type: DataTypes.ENUM('Worker', 'Client'), 
+    type: DataTypes.ENUM("Worker", "Client"),
     allowNull: false,
   },
 });

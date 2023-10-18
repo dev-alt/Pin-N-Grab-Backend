@@ -13,7 +13,7 @@ User.hasMany(Email, { foreignKey: "senderUserId", as: "sentEmails" });
 User.hasMany(Email, { foreignKey: "recipientUserId", as: "receivedEmails" });
 User.hasMany(Application, { foreignKey: "user_id" });
 User.hasOne(UserProfile);
-User.hasMany(SavedJob, { foreignKey: "userId" }); 
+User.hasMany(SavedJob, { foreignKey: "userId" });
 
 Job.hasMany(Application, { foreignKey: "job_id" });
 Job.belongsTo(User, {
@@ -24,7 +24,7 @@ Job.belongsTo(Category, { foreignKey: "category_id" });
 Job.belongsTo(Location, {
   foreignKey: { name: "location_id", allowNull: false },
 });
-Job.hasMany(SavedJob, { foreignKey: "jobId" }); 
+Job.hasMany(SavedJob, { foreignKey: "jobId" });
 SavedJob.belongsTo(Job, { foreignKey: "jobId" });
 
 UserReview.belongsTo(User, {
