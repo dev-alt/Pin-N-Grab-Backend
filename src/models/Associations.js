@@ -10,9 +10,16 @@ const SavedJob = require("./SaveJob");
 
 // Define associations
 // Add or modify the foreign key associations with the onDelete option
-Message.belongsTo(User, { foreignKey: 'senderUserId', as: 'sender', onDelete: 'CASCADE' });
-Message.belongsTo(User, { foreignKey: 'recipientUserId', as: 'recipient', onDelete: 'CASCADE' });
-
+Message.belongsTo(User, {
+  foreignKey: "senderUserId",
+  as: "sender",
+  onDelete: "CASCADE",
+});
+Message.belongsTo(User, {
+  foreignKey: "recipientUserId",
+  as: "recipient",
+  onDelete: "CASCADE",
+});
 
 User.hasMany(Application, { foreignKey: "user_id" });
 User.hasOne(UserProfile);

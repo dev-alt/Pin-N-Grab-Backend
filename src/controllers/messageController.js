@@ -46,7 +46,7 @@ async function getInbox(req, res) {
       include: [
         {
           model: User,
-          as: 'sender', // Use the alias you specified
+          as: "sender", // Use the alias you specified
         },
       ],
     });
@@ -57,7 +57,6 @@ async function getInbox(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
 
 async function deleteMessage(req, res) {
   try {

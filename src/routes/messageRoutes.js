@@ -33,7 +33,11 @@ const messageController = require("../controllers/messageController");
  *       500:
  *         description: Internal server error.
  */
-router.post("/send", authMiddleware.authenticateJWT, messageController.sendMessage);
+router.post(
+  "/send",
+  authMiddleware.authenticateJWT,
+  messageController.sendMessage
+);
 
 /**
  * @swagger
@@ -63,7 +67,11 @@ router.post("/send", authMiddleware.authenticateJWT, messageController.sendMessa
  *       500:
  *         description: Internal server error.
  */
-router.get("/get/inbox/:id", authMiddleware.authenticateJWT, messageController.getInbox);
+router.get(
+  "/get/inbox/:id",
+  authMiddleware.authenticateJWT,
+  messageController.getInbox
+);
 
 /**
  * @swagger
@@ -89,7 +97,11 @@ router.get("/get/inbox/:id", authMiddleware.authenticateJWT, messageController.g
  *       500:
  *         description: Internal server error.
  */
-router.get("/:id", authMiddleware.authenticateJWT, messageController.viewMessage);
+router.get(
+  "/:id",
+  authMiddleware.authenticateJWT,
+  messageController.viewMessage
+);
 
 /**
  * @swagger

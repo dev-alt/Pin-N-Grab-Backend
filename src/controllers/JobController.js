@@ -4,7 +4,6 @@ const Location = require("../models/Location");
 const Application = require("../models/Application");
 const SavedJob = require("../models/SaveJob");
 
-
 async function createJob(req, res) {
   try {
     const {
