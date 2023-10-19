@@ -14,6 +14,10 @@ const UserProfile = sequelize.define("UserProfile", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = UserProfile;

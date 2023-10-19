@@ -3,7 +3,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const JobRoutes = require("./routes/jobRoutes");
-const emailRoutes = require("./routes/emailRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const sequelize = require("./utils/db");
 const { swaggerUi, specs } = require("./swagger");
@@ -20,7 +20,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs)); // Swagger docume
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", JobRoutes);
 app.use("/api/auth", authRoutes); // Use the auth routes
-app.use("/api/email", emailRoutes); // Use the auth routes
+app.use("/api/message", messageRoutes); // Use the auth routes
 app.use("/api/review", reviewRoutes); // Use the auth routes
 
 sequelize

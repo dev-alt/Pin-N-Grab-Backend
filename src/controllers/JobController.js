@@ -3,12 +3,8 @@ const User = require("../models/User");
 const Location = require("../models/Location");
 const Application = require("../models/Application");
 const SavedJob = require("../models/SaveJob");
-/**
- * Creates a new job listing.
- * @async
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
+
+
 async function createJob(req, res) {
   try {
     const {

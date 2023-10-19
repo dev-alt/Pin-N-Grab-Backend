@@ -1,7 +1,7 @@
 const User = require("./User");
 const Job = require("./Job");
 const Application = require("./Application");
-const Email = require("./Email");
+const Message = require("./Message");
 const UserProfile = require("./UserProfile");
 const UserReview = require("./UserReview");
 const Category = require("./Category");
@@ -9,8 +9,11 @@ const Location = require("./Location");
 const SavedJob = require("./SaveJob");
 
 // Define associations
-User.hasMany(Email, { foreignKey: "senderUserId", as: "sentEmails" });
-User.hasMany(Email, { foreignKey: "recipientUserId", as: "receivedEmails" });
+// Add or modify the foreign key associations with the onDelete option
+Message.belongsTo(User, { foreignKey: 'senderUserId', as: 'sender', onDelete: 'CASCADE' });
+Message.belongsTo(User, { foreignKey: 'recipientUserId', as: 'recipient', onDelete: 'CASCADE' });
+
+
 User.hasMany(Application, { foreignKey: "user_id" });
 User.hasOne(UserProfile);
 User.hasMany(SavedJob, { foreignKey: "userId" });
@@ -40,7 +43,7 @@ module.exports = {
   User,
   Job,
   Application,
-  Email,
+  Message,
   UserProfile,
   UserReview,
   SavedJob,
