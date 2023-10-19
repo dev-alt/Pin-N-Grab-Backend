@@ -4,6 +4,16 @@ const saveJob = async (req, res) => {
   const { userId, jobId } = req.params;
 
   try {
+    // Check if a SavedJob record with the same userId and jobId exists
+    const existingSavedJob = await SavedJob.findOne({
+      where: { userId, jobId },
+    });
+
+    if (existingSavedJob) {
+      // If a record already exists, return an error response
+      return res.status(400).json({ error: "Job already saved" });
+    }
+
     // Create a new SavedJob record
     await SavedJob.create({ userId, jobId });
     res.status(201).json({ message: "Job saved successfully" });
@@ -12,6 +22,7 @@ const saveJob = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 const unsaveJob = async (req, res) => {
   const { userId, jobId } = req.params;
