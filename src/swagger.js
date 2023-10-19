@@ -40,7 +40,10 @@ const options = {
         name: "User",
       },
       {
-        name: "Email",
+        name: "Messages",
+      },
+      {
+        name: "Reviews",
       },
     ],
   },

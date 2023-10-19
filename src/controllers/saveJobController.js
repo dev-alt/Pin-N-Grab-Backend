@@ -19,7 +19,7 @@ const saveJob = async (req, res) => {
     res.status(201).json({ message: "Job saved successfully" });
   } catch (error) {
     console.error("Error saving job:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error, cannot save job" });
   }
 };
 
@@ -35,7 +35,7 @@ const unsaveJob = async (req, res) => {
     res.status(200).json({ message: "Job unsaved successfully" });
   } catch (error) {
     console.error("Error unsaving job:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error, cannot unsave job" });
   }
 };
 
