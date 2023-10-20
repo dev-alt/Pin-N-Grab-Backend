@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jobController = require("../controllers/jobController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 /**
  * @swagger
@@ -55,7 +56,7 @@ router.post("/create", jobController.createJob);
  *         required: true
  *         description: The ID of the job to delete.
  *         schema:
- *           type: integern
+ *           type: integer
  *     responses:
  *       200:
  *         description: Job deleted successfully.
@@ -122,9 +123,57 @@ router.put("/update/:id", jobController.updateJobById);
  */
 router.get("/get/:id", jobController.getJobById);
 
+/**
+ * @swagger
+ * /api/jobs/all:
+ *   get:
+ *     summary: Get all jobs
+ *     description: Retrieve a list of all job postings.
+ *     tags: [Jobs]
+ *     responses:
+ *       200:
+ *         description: Jobs retrieved successfully.
+ *       500:
+ *         description: Internal server error.
+ */
 router.get("/all", jobController.getJobs);
 
-router.get("/saved/:id", jobController.getSavedJobs);
+
+/**
+ * @swagger
+ * /api/jobs/applyForJob/{jobId}:
+ *   post:
+ *     summary: Apply for a job
+ *     description: Submit an application for a job posting.
+ *     tags: [Jobs]
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         description: The ID of the job to apply for.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               applicationText:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Application submitted successfully.
+ *       400:
+ *         description: Invalid application or job not open for applications.
+ *       500:
+ *         description: Internal server error.
+ * security:
+ *   - JWT: []
+ */
+router.post("/applyForJob/:jobId", authMiddleware.authenticateJWT, jobController.applyForJob);
+
 
 /**
  * @swagger

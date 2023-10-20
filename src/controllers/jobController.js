@@ -42,12 +42,43 @@ async function createJob(req, res) {
   }
 }
 
-/**
- * Retrieves a job listing by its ID.
- * @async
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
+async function applyForJob(req, res) {
+  try {
+    const { applicationText, user_id } = req.body;
+    const job_id = req.params.jobId; 
+
+    // Check if the job exists and is open
+    const job = await Job.findOne({ where: { id: job_id, jobStatus: "Open" } });
+
+    if (!job) {
+      return res.status(400).json({ error: "Job not found or not open for applications." });
+    }
+
+    // Check if the user is not the owner of the job
+    if (job.user_id === user_id) {
+      return res.status(400).json({ error: "You cannot apply for your own job." });
+    }
+
+    // Check if the user has already applied for the job
+    const existingApplication = await Application.findOne({
+      where: { job_id, user_id },
+    });
+
+    if (existingApplication) {
+      return res.status(400).json({ error: "You have already applied for this job." });
+    }
+
+    // Create a new application
+    const application = await Application.create({ job_id, applicationText, user_id });
+
+    res.status(201).json({ message: "Application submitted successfully", application });
+  } catch (error) {
+    console.error("Error submitting application:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
 async function getJobById(req, res) {
   try {
     const jobId = req.params.id;
@@ -145,12 +176,6 @@ async function updateJobById(req, res) {
   }
 }
 
-/**
- * Deletes a job listing by its ID.
- * @async
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
 async function deleteJobById(req, res) {
   try {
     const jobId = req.params.id;
@@ -193,4 +218,5 @@ module.exports = {
   deleteJobById,
   getAllLocations,
   getSavedJobs,
+  applyForJob,
 };
