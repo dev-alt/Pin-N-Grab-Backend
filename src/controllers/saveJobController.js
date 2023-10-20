@@ -1,5 +1,27 @@
 const SavedJob = require("../models/SaveJob");
 
+
+
+const checkSavedStatus = async (req, res) => {
+  const { userId, jobId } = req.params;
+
+  try {
+    // Check if a SavedJob record with the same userId and jobId exists
+    const existingSavedJob = await SavedJob.findOne({
+      where: { userId, jobId },
+    });
+
+    if (existingSavedJob) {
+      return res.status(200).json({ isSaved: true });
+    } else {
+      return res.status(200).json({ isSaved: false });
+    }
+  } catch (error) {
+    console.error("Error checking saved status:", error);
+    res.status(500).json({ error: "Internal server error, cannot check saved status" });
+  }
+};
+
 const saveJob = async (req, res) => {
   const { userId, jobId } = req.params;
 
@@ -39,4 +61,4 @@ const unsaveJob = async (req, res) => {
   }
 };
 
-module.exports = { saveJob, unsaveJob };
+module.exports = { saveJob, unsaveJob, checkSavedStatus };

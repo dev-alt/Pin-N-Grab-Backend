@@ -20,50 +20,11 @@ const saveJobController = require("../controllers/saveJobController");
  */
 router.get("/all", userController.getAllUsers);
 
-/**
- * @swagger
- * /api/users/test-route:
- *   get:
- *     summary: Test route
- *     description: A test route.
- *     tags: [User]
- *     responses:
- *       200:
- *         description: A success message.
- */
-router.get("/test-route", (req, res) => {
-  res.json({ message: "This is a test route" });
-});
-
 router.post("/:userId/saveJob/:jobId", saveJobController.saveJob);
 
 router.delete("/:userId/unsaveJob/:jobId", saveJobController.unsaveJob);
 
-/**
- * @swagger
- * /api/users/data:
- *   get:
- *     summary: Get user data
- *     description: Retrieve data from the "Users" table.
- *     tags: [User]
- *     responses:
- *       200:
- *         description: User data retrieved successfully.
- *       500:
- *         description: Internal server error.
- */
-
-router.get("/data", async (req, res) => {
-  try {
-    const query = "SELECT * FROM Users";
-    const [rows] = await db.query(query);
-    console.log("Rows:", rows);
-    res.json(rows);
-  } catch (error) {
-    console.error("Error fetching data from the database:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+router.get("/:userId/checkSavedJob/:jobId", saveJobController.checkSavedStatus);
 
 /**
  * @swagger
