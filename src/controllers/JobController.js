@@ -15,6 +15,7 @@ async function createJob(req, res) {
       paymentAmount,
       jobStatus,
       category_id,
+      user_id,
     } = req.body;
 
     const allowedStatusValues = ["Open", "Closed", "Deleted"];
@@ -31,6 +32,7 @@ async function createJob(req, res) {
       paymentAmount,
       jobStatus,
       category_id,
+      user_id,
     });
 
     res.status(201).json({ message: "Job listing created", job });
