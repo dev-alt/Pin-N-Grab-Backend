@@ -131,6 +131,7 @@ async function getJobs(req, res) {
 
 async function getSavedJobs(req, res) {
   const { id } = req.params;
+  console.log("User ID:", id)
 
   try {
     // Find all saved jobs for the specified user
@@ -221,6 +222,41 @@ async function getAllLocations(req, res) {
   }
 }
 
+async function getAppliedJobs(req, res) {
+  const { id } = req.params;
+  try {
+    const appliedJobs = await Application.findAll({
+      where: { user_id: id },
+      include: [
+        {
+          model: Job, // Include the associated job
+          include: [
+            {
+              model: User,
+              attributes: ["username"],
+            },
+            {
+              model: Application,
+              include: [{ model: User, attributes: ["id", "username"] }],
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!appliedJobs) {
+      return res.status(404).json({ error: "No applied jobs found for this user" });
+    }
+
+    res.json(appliedJobs);
+  } catch (error) {
+    console.error("Error fetching applied jobs:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+
 module.exports = {
   createJob,
   getJobs,
@@ -230,4 +266,5 @@ module.exports = {
   getAllLocations,
   getSavedJobs,
   applyForJob,
+  getAppliedJobs,
 };

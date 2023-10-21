@@ -13,7 +13,7 @@ async function getUserReviews(req, res) {
         {
           model: User,
           as: "reviewer",
-          attributes: ["id", "username"],                   
+          attributes: ["id", "username"],
         },
         {
           model: Job,

@@ -201,4 +201,8 @@ router.post(
  */
 router.get("/locations/all", jobController.getAllLocations);
 
+router.get("/saved/:id", jobController.getSavedJobs);
+
+router.get("/applied/:id", jobController.getAppliedJobs);
+
 module.exports = router;

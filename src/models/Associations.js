@@ -45,6 +45,7 @@ UserReview.belongsTo(User, {
 UserReview.belongsTo(Job, { foreignKey: "jobId", onDelete: "CASCADE" });
 
 Application.belongsTo(User, { foreignKey: "user_id" });
+Application.belongsTo(Job, { foreignKey: 'job_id' });
 
 module.exports = {
   User,

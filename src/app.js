@@ -19,9 +19,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs)); // Swagger docume
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", JobRoutes);
-app.use("/api/auth", authRoutes); 
-app.use("/api/message", messageRoutes); 
-app.use("/api/review", reviewRoutes); 
+app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
+app.use("/api/review", reviewRoutes);
 
 sequelize
   .sync({ alter: true }) // sync your models and updates the schema if needed
