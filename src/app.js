@@ -7,7 +7,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const sequelize = require("./utils/db");
 const { swaggerUi, specs } = require("./swagger");
-require("./models/Associations"); // Import and execute the associations.js file
+require("./models/Associations"); // associations.js file
 
 const app = express();
 
@@ -16,15 +16,15 @@ app.use(express.json()); // Parse JSON requests
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs)); // Swagger documentation
 
-// Use userRoutes
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", JobRoutes);
-app.use("/api/auth", authRoutes); // Use the auth routes
-app.use("/api/message", messageRoutes); // Use the auth routes
-app.use("/api/review", reviewRoutes); // Use the auth routes
+app.use("/api/auth", authRoutes); 
+app.use("/api/message", messageRoutes); 
+app.use("/api/review", reviewRoutes); 
 
 sequelize
-  .sync({ alter: true }) // This syncs your models and updates the schema if needed
+  .sync({ alter: true }) // sync your models and updates the schema if needed
   .then(() => {
     console.log("Database synced");
   })

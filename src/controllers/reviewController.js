@@ -13,7 +13,7 @@ async function getUserReviews(req, res) {
         {
           model: User,
           as: "reviewer",
-          attributes: ["username"],
+          attributes: ["id", "username"],                   
         },
         {
           model: Job,
@@ -21,7 +21,7 @@ async function getUserReviews(req, res) {
           include: [
             {
               model: User, // No alias is needed here
-              attributes: ["username"],
+              attributes: ["id", "username"],
             },
           ],
         },
