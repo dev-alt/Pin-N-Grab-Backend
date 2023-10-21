@@ -138,7 +138,6 @@ router.get("/get/:id", jobController.getJobById);
  */
 router.get("/all", jobController.getJobs);
 
-
 /**
  * @swagger
  * /api/jobs/applyForJob/{jobId}:
@@ -172,8 +171,11 @@ router.get("/all", jobController.getJobs);
  * security:
  *   - JWT: []
  */
-router.post("/applyForJob/:jobId", authMiddleware.authenticateJWT, jobController.applyForJob);
-
+router.post(
+  "/applyForJob/:jobId",
+  authMiddleware.authenticateJWT,
+  jobController.applyForJob
+);
 
 /**
  * @swagger

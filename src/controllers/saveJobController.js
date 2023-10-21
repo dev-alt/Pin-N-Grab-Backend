@@ -1,7 +1,5 @@
 const SavedJob = require("../models/SaveJob");
 
-
-
 const checkSavedStatus = async (req, res) => {
   const { userId, jobId } = req.params;
 
@@ -18,7 +16,9 @@ const checkSavedStatus = async (req, res) => {
     }
   } catch (error) {
     console.error("Error checking saved status:", error);
-    res.status(500).json({ error: "Internal server error, cannot check saved status" });
+    res
+      .status(500)
+      .json({ error: "Internal server error, cannot check saved status" });
   }
 };
 
@@ -44,7 +44,6 @@ const saveJob = async (req, res) => {
     res.status(500).json({ error: "Internal server error, cannot save job" });
   }
 };
-
 
 const unsaveJob = async (req, res) => {
   const { userId, jobId } = req.params;

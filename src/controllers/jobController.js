@@ -45,18 +45,22 @@ async function createJob(req, res) {
 async function applyForJob(req, res) {
   try {
     const { applicationText, user_id } = req.body;
-    const job_id = req.params.jobId; 
+    const job_id = req.params.jobId;
 
     // Check if the job exists and is open
     const job = await Job.findOne({ where: { id: job_id, jobStatus: "Open" } });
 
     if (!job) {
-      return res.status(400).json({ error: "Job not found or not open for applications." });
+      return res
+        .status(400)
+        .json({ error: "Job not found or not open for applications." });
     }
 
     // Check if the user is not the owner of the job
     if (job.user_id === user_id) {
-      return res.status(400).json({ error: "You cannot apply for your own job." });
+      return res
+        .status(400)
+        .json({ error: "You cannot apply for your own job." });
     }
 
     // Check if the user has already applied for the job
@@ -65,19 +69,26 @@ async function applyForJob(req, res) {
     });
 
     if (existingApplication) {
-      return res.status(400).json({ error: "You have already applied for this job." });
+      return res
+        .status(400)
+        .json({ error: "You have already applied for this job." });
     }
 
     // Create a new application
-    const application = await Application.create({ job_id, applicationText, user_id });
+    const application = await Application.create({
+      job_id,
+      applicationText,
+      user_id,
+    });
 
-    res.status(201).json({ message: "Application submitted successfully", application });
+    res
+      .status(201)
+      .json({ message: "Application submitted successfully", application });
   } catch (error) {
     console.error("Error submitting application:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
 
 async function getJobById(req, res) {
   try {
