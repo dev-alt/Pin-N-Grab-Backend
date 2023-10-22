@@ -3,14 +3,7 @@ const User = require("../models/User");
 const UserProfile = require("../models/UserProfile");
 const sequelize = require("../utils/db");
 
-/**
- * Registers a new user with the provided username, email, and password.
- * @async
- * @function registerUser
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>} A Promise that resolves when the user is registered.
- */
+
 async function registerUser(req, res) {
   const { username, email, password, firstName, lastName } = req.body;
 
