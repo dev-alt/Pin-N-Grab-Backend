@@ -131,7 +131,6 @@ async function getJobs(req, res) {
 
 async function getSavedJobs(req, res) {
   const { id } = req.params;
-  console.log("User ID:", id)
 
   try {
     // Find all saved jobs for the specified user
@@ -245,7 +244,9 @@ async function getAppliedJobs(req, res) {
     });
 
     if (!appliedJobs) {
-      return res.status(404).json({ error: "No applied jobs found for this user" });
+      return res
+        .status(404)
+        .json({ error: "No applied jobs found for this user" });
     }
 
     res.json(appliedJobs);
@@ -254,8 +255,6 @@ async function getAppliedJobs(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
-
 
 module.exports = {
   createJob,
