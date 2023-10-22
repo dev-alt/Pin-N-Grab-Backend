@@ -41,7 +41,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
  *       500:
  *         description: Internal server error.
  */
-router.post("/create", jobController.createJob);
+router.post("/create",   authMiddleware.authenticateJWT, jobController.createJob);
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.post("/create", jobController.createJob);
  *       500:
  *         description: Internal server error.
  */
-router.post("/delete/:id", jobController.deleteJobById);
+router.post("/delete/:id",   authMiddleware.authenticateJWT, jobController.deleteJobById);
 
 /**
  * @swagger
@@ -99,7 +99,7 @@ router.post("/delete/:id", jobController.deleteJobById);
  *       500:
  *         description: Internal server error.
  */
-router.put("/update/:id", jobController.updateJobById);
+router.put("/update/:id",   authMiddleware.authenticateJWT, jobController.updateJobById);
 
 /**
  * @swagger
@@ -201,8 +201,8 @@ router.post(
  */
 router.get("/locations/all", jobController.getAllLocations);
 
-router.get("/saved/:id", jobController.getSavedJobs);
+router.get("/saved/:id",   authMiddleware.authenticateJWT, jobController.getSavedJobs);
 
-router.get("/applied/:id", jobController.getAppliedJobs);
+router.get("/applied/:id",  authMiddleware.authenticateJWT, jobController.getAppliedJobs);
 
 module.exports = router;
