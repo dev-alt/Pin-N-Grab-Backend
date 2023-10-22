@@ -129,6 +129,32 @@ async function getJobs(req, res) {
   }
 }
 
+
+async function setJobClosed(req, res) {
+  try {
+    const jobId = req.params.id;
+    
+    // Find the job by ID
+    const job = await Job.findByPk(jobId);
+    
+    // Check if the job exists
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+    
+    // Update the job status to 'closed'
+    job.jobStatus = 'Closed';
+    await job.save();
+    
+    res.json({ message: 'Job closed successfully' });
+  } catch (error) {
+    console.error('Error closing job:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+
 async function getSavedJobs(req, res) {
   const { id } = req.params;
 
@@ -228,7 +254,7 @@ async function getAppliedJobs(req, res) {
       where: { user_id: id },
       include: [
         {
-          model: Job, // Include the associated job
+          model: Job,
           include: [
             {
               model: User,
@@ -266,4 +292,5 @@ module.exports = {
   getSavedJobs,
   applyForJob,
   getAppliedJobs,
+  setJobClosed,
 };

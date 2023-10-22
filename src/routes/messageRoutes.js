@@ -133,4 +133,36 @@ router.delete(
   messageController.deleteMessage
 );
 
+/**
+ * @swagger
+ * /api/message/mark-as-read/{id}:
+ *   patch:
+ *     summary: Mark a Message as Read
+ *     description: Mark a message as read by its ID.
+ *     tags: [Message]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the message to mark as read.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Message marked as read.
+ *       403:
+ *         description: Access denied.
+ *       404:
+ *         description: Message not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.patch(
+  '/mark-as-read/:id',
+  authMiddleware.authenticateJWT, // Use your authentication middleware
+  messageController.markAsRead
+);
+
 module.exports = router;

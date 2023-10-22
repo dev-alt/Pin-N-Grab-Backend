@@ -99,6 +99,35 @@ async function viewMessage(req, res) {
   }
 }
 
+async function markAsRead(req, res) {
+  try {
+    const messageId = req.params.id;
+
+    // Check if the message exists
+    const message = await Message.findByPk(messageId);
+
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Check if the recipient is the currently authenticated user (you might need to implement proper user authentication)
+    if (message.recipientUserId !== req.user.id) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    // Update the message to mark it as read
+    message.read = true;
+    await message.save();
+
+    res.json({ message: "Message marked as read" });
+  } catch (error) {
+    console.error("Error marking message as read:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+
 // You can add more message-related controller methods as needed
 
 module.exports = {
@@ -106,4 +135,5 @@ module.exports = {
   getInbox,
   deleteMessage,
   viewMessage,
+  markAsRead,
 };

@@ -205,4 +205,6 @@ router.get("/saved/:id",   authMiddleware.authenticateJWT, jobController.getSave
 
 router.get("/applied/:id",  authMiddleware.authenticateJWT, jobController.getAppliedJobs);
 
+router.patch("/:id/close",  authMiddleware.authenticateJWT, jobController.setJobClosed);
+
 module.exports = router;
