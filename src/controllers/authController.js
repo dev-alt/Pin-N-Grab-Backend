@@ -3,7 +3,6 @@ const User = require("../models/User");
 const UserProfile = require("../models/UserProfile");
 const sequelize = require("../utils/db");
 
-
 async function registerUser(req, res) {
   const { username, email, password, firstName, lastName } = req.body;
 
