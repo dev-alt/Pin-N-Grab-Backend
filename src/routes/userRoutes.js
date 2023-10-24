@@ -20,11 +20,23 @@ const saveJobController = require("../controllers/saveJobController");
  */
 router.get("/all", userController.getAllUsers);
 
-router.post("/:userId/saveJob/:jobId",   authMiddleware.authenticateJWT, saveJobController.saveJob);
+router.post(
+  "/:userId/saveJob/:jobId",
+  authMiddleware.authenticateJWT,
+  saveJobController.saveJob
+);
 
-router.delete("/:userId/unsaveJob/:jobId",   authMiddleware.authenticateJWT, saveJobController.unsaveJob);
+router.delete(
+  "/:userId/unsaveJob/:jobId",
+  authMiddleware.authenticateJWT,
+  saveJobController.unsaveJob
+);
 
-router.get("/:userId/checkSavedJob/:jobId",   authMiddleware.authenticateJWT, saveJobController.checkSavedStatus);
+router.get(
+  "/:userId/checkSavedJob/:jobId",
+  authMiddleware.authenticateJWT,
+  saveJobController.checkSavedStatus
+);
 
 /**
  * @swagger
@@ -82,7 +94,11 @@ router.get("/:id/profile", userController.getUserProfile);
  *       500:
  *         description: Internal server error.
  */
-router.put("/:id/profile",   authMiddleware.authenticateJWT, userController.updateUserProfile);
+router.put(
+  "/:id/profile",
+  authMiddleware.authenticateJWT,
+  userController.updateUserProfile
+);
 
 // Export the router
 module.exports = router;

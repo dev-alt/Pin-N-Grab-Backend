@@ -41,7 +41,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
  *       500:
  *         description: Internal server error.
  */
-router.post("/create",   authMiddleware.authenticateJWT, jobController.createJob);
+router.post("/create", authMiddleware.authenticateJWT, jobController.createJob);
 
 /**
  * @swagger
@@ -63,7 +63,11 @@ router.post("/create",   authMiddleware.authenticateJWT, jobController.createJob
  *       500:
  *         description: Internal server error.
  */
-router.post("/delete/:id",   authMiddleware.authenticateJWT, jobController.deleteJobById);
+router.post(
+  "/delete/:id",
+  authMiddleware.authenticateJWT,
+  jobController.deleteJobById
+);
 
 /**
  * @swagger
@@ -99,7 +103,11 @@ router.post("/delete/:id",   authMiddleware.authenticateJWT, jobController.delet
  *       500:
  *         description: Internal server error.
  */
-router.put("/update/:id",   authMiddleware.authenticateJWT, jobController.updateJobById);
+router.put(
+  "/update/:id",
+  authMiddleware.authenticateJWT,
+  jobController.updateJobById
+);
 
 /**
  * @swagger
@@ -201,10 +209,28 @@ router.post(
  */
 router.get("/locations/all", jobController.getAllLocations);
 
-router.get("/saved/:id",   authMiddleware.authenticateJWT, jobController.getSavedJobs);
+router.get(
+  "/saved/:id",
+  authMiddleware.authenticateJWT,
+  jobController.getSavedJobs
+);
 
-router.get("/applied/:id",  authMiddleware.authenticateJWT, jobController.getAppliedJobs);
+router.get(
+  "/applied/:id",
+  authMiddleware.authenticateJWT,
+  jobController.getAppliedJobs
+);
 
-router.patch("/:id/close",  authMiddleware.authenticateJWT, jobController.setJobClosed);
+router.patch(
+  "/:id/close",
+  authMiddleware.authenticateJWT,
+  jobController.setJobClosed
+);
+
+router.post(
+  "/:jobId/markCompleted",
+  authMiddleware.authenticateJWT,
+  jobController.markJobAsCompleted
+);
 
 module.exports = router;
