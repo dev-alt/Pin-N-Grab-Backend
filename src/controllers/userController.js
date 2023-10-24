@@ -15,14 +15,6 @@ async function getAllUsers(req, res) {
   }
 }
 
-/**
- * Retrieves the user profile for a given user ID.
- * @async
- * @function
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- * @returns {Object} The user profile object for the given user ID.
- */
 async function getUserProfile(req, res) {
   try {
     const userId = req.params.id;

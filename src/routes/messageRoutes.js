@@ -160,7 +160,7 @@ router.delete(
  *         description: Internal server error.
  */
 router.patch(
-  '/mark-as-read/:id',
+  "/mark-as-read/:id",
   authMiddleware.authenticateJWT, // Use your authentication middleware
   messageController.markAsRead
 );

@@ -126,8 +126,6 @@ async function markAsRead(req, res) {
   }
 }
 
-
-
 // You can add more message-related controller methods as needed
 
 module.exports = {

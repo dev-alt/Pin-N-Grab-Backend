@@ -21,7 +21,7 @@ const Message = sequelize.define("Message", {
   },
   read: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false, 
+    defaultValue: false,
   },
 });
 
