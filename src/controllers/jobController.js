@@ -69,9 +69,10 @@ async function applyForJob(req, res) {
     });
 
     if (existingApplication) {
-      return res
-        .status(400)
-        .json({ error: "You have already applied for this job." });
+      return res.status(200).json({
+        message: "You have already applied for this job",
+        applied: true,
+      });
     }
 
     // Create a new application
