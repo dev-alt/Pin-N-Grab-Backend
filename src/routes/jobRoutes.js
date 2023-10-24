@@ -229,9 +229,8 @@ router.patch(
 
 router.post(
   "/:jobId/markCompleted",
-  authMiddleware.authenticateJWT, 
+  authMiddleware.authenticateJWT,
   jobController.markJobAsCompleted
 );
-
 
 module.exports = router;

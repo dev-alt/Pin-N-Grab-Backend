@@ -38,8 +38,8 @@ Job.hasMany(SavedJob, { foreignKey: "jobId" });
 SavedJob.belongsTo(Job, { foreignKey: "jobId" });
 Job.belongsTo(User, {
   foreignKey: "selected_user",
-  as: "selectedUser", 
-  onDelete: "SET NULL", 
+  as: "selectedUser",
+  onDelete: "SET NULL",
 });
 
 UserReview.belongsTo(User, {

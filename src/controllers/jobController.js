@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Location = require("../models/Location");
 const Application = require("../models/Application");
 const SavedJob = require("../models/SaveJob");
-const Message = require("../models/Message"); 
+const Message = require("../models/Message");
 
 async function createJob(req, res) {
   try {
@@ -93,13 +93,11 @@ async function applyForJob(req, res) {
       content: `A new application has been submitted for your job listing (Job ID: ${job_id}).`,
     });
 
-    res
-      .status(201)
-      .json({
-        message: "Application submitted successfully",
-        application,
-        applicationMessage: message,
-      });
+    res.status(201).json({
+      message: "Application submitted successfully",
+      application,
+      applicationMessage: message,
+    });
   } catch (error) {
     console.error("Error submitting application:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -110,12 +108,14 @@ async function markJobAsCompleted(req, res) {
   try {
     const { selectedUserId } = req.body;
     const job_id = req.params.jobId;
-    
+
     // Check if the job exists and is currently open
     const job = await Job.findOne({ where: { id: job_id, jobStatus: "Open" } });
-    
+
     if (!job) {
-      return res.status(400).json({ error: "Job not found or not open for completion." });
+      return res
+        .status(400)
+        .json({ error: "Job not found or not open for completion." });
     }
 
     // Check if the selected user exists
@@ -141,15 +141,16 @@ async function markJobAsCompleted(req, res) {
       content: `Congratulations! You have been chosen for the job: ${job.title}.`,
     });
 
-    res.json({ message: "Job marked as Completed", job, notificationMessage: message });
+    res.json({
+      message: "Job marked as Completed",
+      job,
+      notificationMessage: message,
+    });
   } catch (error) {
     console.error("Error marking job as Completed:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
-
-
 
 async function getJobById(req, res) {
   try {
