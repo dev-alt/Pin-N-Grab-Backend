@@ -41,6 +41,38 @@ router.post(
 
 /**
  * @swagger
+ * /get/inbox/{id}/unread:
+ *   get:
+ *     summary: Get unread messages for a specific user.
+ *     tags:
+ *       - Message
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: User ID to retrieve unread messages for.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of unread messages
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Message'
+ *       404:
+ *         description: User not found or no unread messages
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/get/inbox/:id/unread", authMiddleware.authenticateJWT, messageController.getUnreadMessages);
+
+/**
+ * @swagger
  * /api/Message/inbox:
  *   get:
  *     summary: Retrieve a user's inbox

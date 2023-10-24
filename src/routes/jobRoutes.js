@@ -85,6 +85,8 @@ router.post(
  *         description: The ID of the job to update.
  *         schema:
  *           type: integer
+*     security:
+ *       - BearerAuth: []
  *       - in: body
  *         name: job
  *         description: The updated job object.
@@ -114,7 +116,8 @@ router.put(
  * /api/jobs/get/{id}:
  *   get:
  *     summary: Get a job by ID
- *     description: Retrieve a job posting by its ID.
+ *     description: Retrieve a job posting by its ID.*     
+ *     tags: [Jobs]
  *     parameters:
  *       - in: path
  *         name: id
@@ -160,6 +163,8 @@ router.get("/all", jobController.getJobs);
  *         description: The ID of the job to apply for.
  *         schema:
  *           type: integer
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -209,28 +214,181 @@ router.post(
  */
 router.get("/locations/all", jobController.getAllLocations);
 
-router.get(
-  "/saved/:id",
-  authMiddleware.authenticateJWT,
-  jobController.getSavedJobs
-);
+/**
+ * @swagger
+ * /api/jobs/saved/{id}:
+ *   get:
+ *     summary: Get saved jobs for a user by user ID.
+*     tags: [Jobs]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user for whom saved jobs are to be fetched.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of saved jobs for the user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Job'
+ *       404:
+ *         description: No saved jobs found for the user.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: No saved jobs found for this user
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal server error
+ */
+router.get("/api/jobs/saved/:id", authMiddleware.authenticateJWT, jobController.getSavedJobs);
 
-router.get(
-  "/applied/:id",
-  authMiddleware.authenticateJWT,
-  jobController.getAppliedJobs
-);
 
-router.patch(
-  "/:id/close",
-  authMiddleware.authenticateJWT,
-  jobController.setJobClosed
-);
+/**
+ * @swagger
+ * /api/jobs/applied/{id}:
+ *   get:
+ *     summary: Get applied jobs for a user by user ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user for whom applied jobs are to be fetched.
+*     tags: [Jobs]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of applied jobs for the user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Job'
+ *       404:
+ *         description: No applied jobs found for the user.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: No applied jobs found for this user
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal server error
+ */
+router.get("/applied/:id", authMiddleware.authenticateJWT, jobController.getAppliedJobs);
 
-router.post(
-  "/:jobId/markCompleted",
-  authMiddleware.authenticateJWT,
-  jobController.markJobAsCompleted
-);
+
+/**
+ * @swagger
+ * /api/jobs/{id}/close:
+ *   patch:
+ *     summary: Close a job.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the job to close.
+*     tags: [Jobs]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Job closed successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message confirming that the job was closed successfully.
+ *       404:
+ *         description: Job not found.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Job not found
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal server error
+ */
+router.patch("/:id/close", authMiddleware.authenticateJWT, jobController.setJobClosed);
+
+/**
+ * @swagger
+ * /api/jobs/{jobId}/markCompleted:
+ *   post:
+ *     summary: Mark a job as completed.
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the job to mark as completed.
+ *     tags: [Jobs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               selectedUserId:
+ *                 type: integer
+ *                 description: The ID of the user selected to complete the job.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Job marked as completed successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message confirming that the job was marked as completed.
+ *                 job:
+ *                   $ref: '#/components/schemas/Job'
+ *                 notificationMessage:
+ *                   $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Job not found or not open for completion, or selected user not found.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Job not found or not open for completion.
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal server error
+ */
+router.post("/:jobId/markCompleted", authMiddleware.authenticateJWT, jobController.markJobAsCompleted);
+
 
 module.exports = router;

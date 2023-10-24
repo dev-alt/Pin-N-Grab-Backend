@@ -67,6 +67,32 @@ async function getInbox(req, res) {
   }
 }
 
+async function getUnreadMessages(req, res) {
+  try {
+    const userId = req.user.id;
+
+    // Retrieve all unread messages where the user is the recipient
+    const unreadMessages = await Message.findAll({
+      where: {
+        recipientUserId: userId,
+        read: false, // Filter for unread messages
+      },
+      // Include sender information if needed
+      include: [
+        {
+          model: User,
+          as: "sender", // Use the alias you specified
+        },
+      ],
+    });
+
+    res.json(unreadMessages);
+  } catch (error) {
+    console.error("Error fetching unread messages:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 async function deleteMessage(req, res) {
   try {
     const messageId = req.params.id;
@@ -143,4 +169,5 @@ module.exports = {
   deleteMessage,
   viewMessage,
   markAsRead,
+  getUnreadMessages,
 };

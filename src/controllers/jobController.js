@@ -133,9 +133,9 @@ async function markJobAsCompleted(req, res) {
     await job.save();
 
     // Send a message to the selected user
-    const jobOwner = await User.findByPk(job.user_id); // Assuming job.user_id is the owner of the job
+    const jobOwner = await User.findByPk(job.user_id); 
     const message = await Message.create({
-      senderUserId: jobOwner.id, // The job owner is the sender
+      senderUserId: jobOwner.id, 
       recipientUserId: selectedUserId,
       subject: "You've been chosen for a job",
       date: new Date(),

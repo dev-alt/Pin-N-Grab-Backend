@@ -40,7 +40,7 @@ const options = {
         name: "User",
       },
       {
-        name: "Messages",
+        name: "Message",
       },
       {
         name: "Reviews",

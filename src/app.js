@@ -7,7 +7,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const sequelize = require("./utils/db");
 const { swaggerUi, specs } = require("./swagger");
-require("./models/Associations"); // associations.js file
+require("./models/Associations"); // associations.js file for all models
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use("/api/message", messageRoutes);
 app.use("/api/review", reviewRoutes);
 
 sequelize
-  .sync({ alter: true }) // sync your models and updates the schema if needed
+  .sync({ alter: true }) 
   .then(() => {
     console.log("Database synced");
   })
