@@ -33,6 +33,15 @@ async function sendMessage(req, res) {
   }
 }
 
+
+
+
+
+
+
+
+
+
 async function getInbox(req, res) {
   try {
     const userId = req.user.id; // Assuming you're using JWT authentication
