@@ -251,7 +251,7 @@ router.get("/locations/all", jobController.getAllLocations);
  *             example:
  *               error: Internal server error
  */
-router.get("/api/jobs/saved/:id", authMiddleware.authenticateJWT, jobController.getSavedJobs);
+router.get("/saved/:id", authMiddleware.authenticateJWT, jobController.getSavedJobs);
 
 
 /**
