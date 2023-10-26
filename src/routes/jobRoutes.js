@@ -63,11 +63,7 @@ router.post("/create", authMiddleware.authenticateJWT, jobController.createJob);
  *       500:
  *         description: Internal server error.
  */
-router.post(
-  "/delete/:id",
-  authMiddleware.authenticateJWT,
-  jobController.deleteJobById
-);
+router.post("/delete/:id", authMiddleware.authenticateJWT, jobController.deleteJobById);
 
 /**
  * @swagger
@@ -105,11 +101,7 @@ router.post(
  *       500:
  *         description: Internal server error.
  */
-router.put(
-  "/update/:id",
-  authMiddleware.authenticateJWT,
-  jobController.updateJobById
-);
+router.put("/update/:id", authMiddleware.authenticateJWT, jobController.updateJobById);
 
 /**
  * @swagger
@@ -133,6 +125,38 @@ router.put(
  *         description: Internal server error.
  */
 router.get("/get/:id", jobController.getJobById);
+
+/**
+ * @swagger
+ * /api/jobs/accepted/{id}:
+ *   get:
+ *     summary: Get accepted jobs for a user
+ *     description: Get a list of jobs that have been accepted by a specific user.
+ *     tags: [Jobs]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the user for whom to retrieve accepted jobs.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of accepted jobs.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Job'
+ *       404:
+ *         description: No accepted jobs found for this user.
+ *       500:
+ *         description: Internal server error.
+ *     security:
+ *       - BearerAuth: []
+ */
+router.get("/accepted/:id", authMiddleware.authenticateJWT, jobController.getAcceptedJobs);
 
 /**
  * @swagger
@@ -184,11 +208,7 @@ router.get("/all", jobController.getJobs);
  * security:
  *   - JWT: []
  */
-router.post(
-  "/applyForJob/:jobId",
-  authMiddleware.authenticateJWT,
-  jobController.applyForJob
-);
+router.post("/applyForJob/:jobId", authMiddleware.authenticateJWT, jobController.applyForJob);
 
 /**
  * @swagger

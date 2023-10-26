@@ -342,6 +342,36 @@ async function getAppliedJobs(req, res) {
   }
 }
 
+async function getAcceptedJobs(req, res) {
+  const { id } = req.params;
+
+  try {
+    // Find all jobs where the user is selected as the selected_user
+    const acceptedJobs = await Job.findAll({
+      where: { selected_user: id },
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+        {
+          model: Application,
+          include: [{ model: User, attributes: ["username"] }],
+        },
+      ],
+    });
+
+    if (!acceptedJobs) {
+      return res.status(404).json({ error: "No accepted jobs found for this user" });
+    }
+
+    res.json(acceptedJobs);
+  } catch (error) {
+    console.error("Error fetching accepted jobs:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 module.exports = {
   createJob,
   getJobs,
@@ -354,4 +384,5 @@ module.exports = {
   getAppliedJobs,
   setJobClosed,
   markJobAsCompleted,
+  getAcceptedJobs
 };
