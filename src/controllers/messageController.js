@@ -1,5 +1,5 @@
-const Message = require("../models/Message"); // Import your Message model
-const User = require("../models/User"); // Import your User model
+const Message = require("../models/Message");
+const User = require("../models/User"); 
 
 async function sendMessage(req, res) {
   try {
@@ -21,9 +21,8 @@ async function sendMessage(req, res) {
       senderUserId,
       recipientUserId,
       subject,
-      date, // Include the date field from the request body
-      content, // Include the content field from the request body
-      // Add any other message-related fields here
+      date,
+      content,
     });
 
     res.status(201).json({ message: "Message sent successfully", message });
@@ -33,29 +32,19 @@ async function sendMessage(req, res) {
   }
 }
 
-
-
-
-
-
-
-
-
-
 async function getInbox(req, res) {
   try {
-    const userId = req.user.id; // Assuming you're using JWT authentication
+    const userId = req.user.id;
 
     // Retrieve all messages where the user is the recipient
     const inbox = await Message.findAll({
       where: {
         recipientUserId: userId,
       },
-      // Include sender information if needed
       include: [
         {
           model: User,
-          as: "sender", // Use the alias you specified
+          as: "sender", 
         },
       ],
     });
@@ -77,11 +66,10 @@ async function getUnreadMessages(req, res) {
         recipientUserId: userId,
         read: false, // Filter for unread messages
       },
-      // Include sender information if needed
       include: [
         {
           model: User,
-          as: "sender", // Use the alias you specified
+          as: "sender", 
         },
       ],
     });
@@ -125,8 +113,6 @@ async function viewMessage(req, res) {
       return res.status(404).json({ error: "Message not found" });
     }
 
-    // You can add additional logic or processing here if needed
-
     res.json(message);
   } catch (error) {
     console.error("Error viewing message:", error);
@@ -145,7 +131,6 @@ async function markAsRead(req, res) {
       return res.status(404).json({ error: "Message not found" });
     }
 
-    // Check if the recipient is the currently authenticated user (you might need to implement proper user authentication)
     if (message.recipientUserId !== req.user.id) {
       return res.status(403).json({ error: "Access denied" });
     }
@@ -160,8 +145,6 @@ async function markAsRead(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
-// You can add more message-related controller methods as needed
 
 module.exports = {
   sendMessage,
