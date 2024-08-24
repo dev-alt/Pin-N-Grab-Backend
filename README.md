@@ -1,6 +1,6 @@
-# TradeApp Backend
+# Pin'N'Grab Backend
 
-TradeApp Backend is a robust Express.js application that serves as the backend for a job marketplace platform. It provides a comprehensive set of APIs for user management, job posting, applications, messaging, and reviews.
+Pin'N'Grab Backend is a robust Express.js application that serves as the backend for a job marketplace platform. It provides a comprehensive set of APIs for user management, job posting, applications, messaging, and reviews.
 
 ## Features
 
